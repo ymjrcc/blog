@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="javascript," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="时间还给往前走的人幸福。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="https://ymjrcc.github.io/blog/tags/index.html">
+<meta name="description" content="这几天因为要学习 mobx，把 ES7 Decorator 的语法翻出来复习了一下，在这里做个归纳总结。">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES7 Decorator 小结">
+<meta property="og:url" content="https://ymjrcc.github.io/blog/2017/11/30/Decorator/index.html">
 <meta property="og:site_name" content="Yiming&#39;s blog">
-<meta property="og:description" content="时间还给往前走的人幸福。">
+<meta property="og:description" content="这几天因为要学习 mobx，把 ES7 Decorator 的语法翻出来复习了一下，在这里做个归纳总结。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-29T07:03:07.516Z">
+<meta property="og:updated_time" content="2017-12-01T03:44:51.252Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
-<meta name="twitter:description" content="时间还给往前走的人幸福。">
+<meta name="twitter:title" content="ES7 Decorator 小结">
+<meta name="twitter:description" content="这几天因为要学习 mobx，把 ES7 Decorator 的语法翻出来复习了一下，在这里做个归纳总结。">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://ymjrcc.github.io/blog/tags/"/>
+  <link rel="canonical" href="https://ymjrcc.github.io/blog/2017/11/30/Decorator/"/>
 
 
 
 
 
-  <title>tags | Yiming's blog</title>
+  <title>ES7 Decorator 小结 | Yiming's blog</title>
   
 
 
@@ -274,40 +275,164 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ymjrcc.github.io/blog/blog/2017/11/30/Decorator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yiming">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/IMG_0141.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yiming's blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 4 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/blog/tags/hexo/" style="font-size: 12px; color: #ccc">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 12px; color: #ccc">javascript</a> <a href="/blog/tags/vscode/" style="font-size: 12px; color: #ccc">vscode</a> <a href="/blog/tags/杂/" style="font-size: 12px; color: #ccc">杂</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">ES7 Decorator 小结</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-30T14:12:28+08:00">
+                2017-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p>这几天因为要学习 mobx，把 ES7 Decorator 的语法翻出来复习了一下，在这里做个归纳总结。</p>
+<a id="more"></a>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@decorator</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;&#125;</span><br><span class="line">A = decorator(A) || A;</span><br></pre></td></tr></table></figure>
+<p>修饰器是一个对类进行处理的函数。修饰器函数的第一个参数，就是所要修饰的目标类。</p>
+<p>修饰器可以给类添加静态属性，也可以添加实例属性。如果想添加实例属性，可以通过目标类的 <code>prototype</code> 对象操作。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testable</span>(<span class="params">target</span>) </span>&#123;</span><br><span class="line">  target.prototype.isTestable = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@testable</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyTestableClass</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = <span class="keyword">new</span> MyTestableClass();</span><br><span class="line">obj.isTestable <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>修饰器不仅可以修饰类，还可以修饰类的属性。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  @readonly</span><br><span class="line">  name() &#123; <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.first&#125;</span> <span class="subst">$&#123;<span class="keyword">this</span>.last&#125;</span>`</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时，修饰器函数一共可以接受三个参数：</p>
+<ul>
+<li>第一个参数是所要修饰的目标对象，即类的实例（这不同于类的修饰，那种情况时 <code>target</code> 参数指的是类本身）；  </li>
+<li>第二个参数是所要修饰的属性名；  </li>
+<li>第三个参数是该属性的描述对象。  </li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">readonly</span>(<span class="params">target, name, descriptor</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// descriptor对象原来的值如下</span></span><br><span class="line">  <span class="comment">// &#123;</span></span><br><span class="line">  <span class="comment">//   value: specifiedFunction,</span></span><br><span class="line">  <span class="comment">//   enumerable: false,</span></span><br><span class="line">  <span class="comment">//   configurable: true,</span></span><br><span class="line">  <span class="comment">//   writable: true</span></span><br><span class="line">  <span class="comment">// &#125;;</span></span><br><span class="line">  descriptor.writable = <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">return</span> descriptor;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">readonly(Person.prototype, <span class="string">'name'</span>, descriptor);</span><br><span class="line"><span class="comment">// 类似于</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(Person.prototype, <span class="string">'name'</span>, descriptor);</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/jayphelps/core-decorators" target="_blank" rel="noopener">core-decorators.js</a>是一个第三方模块，提供了几个常见的修饰器。如 <code>@autobind</code>、<code>@readonly</code>、<code>@override</code> 等。</p>
+<p>在 <code>create-react-app</code> 中使用 <code>decorators</code>： <a href="https://www.npmjs.com/package/custom-react-scripts" target="_blank" rel="noopener">https://www.npmjs.com/package/custom-react-scripts</a></p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2017/11/29/hello world/" rel="next" title="hello world">
+                <i class="fa fa-chevron-left"></i> hello world
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2017/12/01/vscode/" rel="prev" title="VS Code 常用操作">
+                VS Code 常用操作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 

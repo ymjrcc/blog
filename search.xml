@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[VS Code 常用操作]]></title>
+    <url>%2Fblog%2F2017%2F12%2F01%2Fvscode%2F</url>
+    <content type="text"><![CDATA[快捷键 cmd + shift + v 打开预览视图（写 md 的时候很方便） cmd + \ 当前文件分屏（文件太长需要跳来跳去看的时候） shift + alt + ↑/↓ 复制当前行到上一行/下一行 shift + alt + 鼠标左键 批量选中文本并编辑 编写 snippets按 F1 键，选择“首选项：打开用户代码段”选择语言，根据提示编写。 支持 decorator用户设置中，&quot;javascript.implicitProjectConfig.experimentalDecorators&quot;: true(上面只是使得 vs code 不报错，要真正使用还需要安装相应 babel 插件，见 create-react-app 一文) 在非 html 文件里快捷打出 html 元素 install HTML Snippets extension Go to the extensions folder matching your OS ( Mac: ~/.vscode/extensions ) Find the extension abusaidm.html-snippets-x.x.x Find package.json inside the extension’s directory and open it with any text editor, e.g. VSC Locate the sections with snippets and you will see: 123456789&#123; "language": "html", "path": "./snippets/snippets.json"&#125;//Add the below snippet with another language you want.,&#123; "language": "NEW LANGUAGE", "path": "./snippets/snippets.json"&#125; Close VSCode and start it again, I have noticed a reload doesn’t always work as intended, now the extension should work with the languages you added.Example of languages: php、javascript、javascriptreact 参考链接]]></content>
+      <tags>
+        <tag>vscode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ES7 Decorator 小结]]></title>
+    <url>%2Fblog%2F2017%2F11%2F30%2FDecorator%2F</url>
+    <content type="text"><![CDATA[这几天因为要学习 mobx，把 ES7 Decorator 的语法翻出来复习了一下，在这里做个归纳总结。 123456@decoratorclass A &#123;&#125;// 等同于class A &#123;&#125;A = decorator(A) || A; 修饰器是一个对类进行处理的函数。修饰器函数的第一个参数，就是所要修饰的目标类。 修饰器可以给类添加静态属性，也可以添加实例属性。如果想添加实例属性，可以通过目标类的 prototype 对象操作。 123456789function testable(target) &#123; target.prototype.isTestable = true;&#125;@testableclass MyTestableClass &#123;&#125;let obj = new MyTestableClass();obj.isTestable // true 修饰器不仅可以修饰类，还可以修饰类的属性。 1234class Person &#123; @readonly name() &#123; return `$&#123;this.first&#125; $&#123;this.last&#125;` &#125;&#125; 此时，修饰器函数一共可以接受三个参数： 第一个参数是所要修饰的目标对象，即类的实例（这不同于类的修饰，那种情况时 target 参数指的是类本身）； 第二个参数是所要修饰的属性名； 第三个参数是该属性的描述对象。 123456789101112131415function readonly(target, name, descriptor)&#123; // descriptor对象原来的值如下 // &#123; // value: specifiedFunction, // enumerable: false, // configurable: true, // writable: true // &#125;; descriptor.writable = false; return descriptor;&#125;readonly(Person.prototype, 'name', descriptor);// 类似于Object.defineProperty(Person.prototype, 'name', descriptor); core-decorators.js是一个第三方模块，提供了几个常见的修饰器。如 @autobind、@readonly、@override 等。 在 create-react-app 中使用 decorators： https://www.npmjs.com/package/custom-react-scripts]]></content>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[hello world]]></title>
     <url>%2Fblog%2F2017%2F11%2F29%2Fhello%20world%2F</url>
-    <content type="text"><![CDATA[距离上次开博客已经两年多了，两年前在 github-pages 上用 jekyll 搭了一个简易的博客，然而懒癌晚期写了三篇就无疾而终。时隔两年，我变秃了，也变强了！在学习和工作的过程中，觉得有一个载体来记录和总结自己的思考和成长过程还是必须的。之前一直用 OneNote 做笔记，但换了 Mac 后发现很多功能都不支持了，心想还是博客方便，故决心重开一个。 昨天简单调研了一下几个受欢迎的博客框架，然后就被 hexo 所深深吸引了，安装配置简单灵活，还有各种好看的主题……就决定是你了！主题用的是 hexo 社区最受欢迎的 NexT。 粗略浏览了一遍文档后就开撸。搭好环境测试了一下没问题，我把原先的GitHub 上的博客仓库改了个名字扔到一边，替换成了现在这个。新增了两个仓库： Yiming_Blog：这是博客脚手架仓库，包括本地环境、主题、各种配置以及 md 格式的博文等。 blog：这是上面那个项目自动生成部署的静态博客站点源码，在 Yiming_Blog 中配置好后，用 markdown 写完博客，在项目根目录直接执行 hexo g -d 命令，就能生成相应的静态页面，一键发布到我的 github-pages 上，通过 这个链接 即可访问。 博客的大部分配置通过修改项目中的 _config.yml 文件来实现。与博客框架相关的配置文件在根目录下，与主题相关的配置文件在 theme 文件夹对应的主题文件夹里。具体参考 hexo 官方文档 、NexT 官方文档 。 在生成 GitHub 仓库时遇到一个问题。由于 NexT 主题我是 git clone 到 theme 文件夹里的，所以它本身就是一个 git 仓库，而 Yiming_Blog 也是一个 git 仓库，于是就形成了大仓库嵌套小仓库的现象。这会导致小仓库里的改动无法被大仓库捕获。于是我把小仓库的 .git 文件夹删除了，使其恢复为普通文件夹，与大仓库融为一体。虽然这样做对将来主题版本更新不是很方便，但考虑到主题版本也不会经常更新，就先这样吧。以后如果要更新主题版本，记得先把 _config.yml 备份一下就好。 好了，暂时先交代这么多吧。希望这次可以坚持久一点，做到笔耕不辍，在持续总结中不断提高自己的姿势水平！]]></content>
+    <content type="text"><![CDATA[距离上次开博客已经两年多了，两年前在 github-pages 上用 jekyll 搭了一个简易的博客，然而懒癌晚期写了三篇就无疾而终。时隔两年，我变秃了，也变强了！在学习和工作的过程中，觉得有一个载体来记录和总结自己的思考和成长过程还是必须的。之前一直用 OneNote 做笔记，但换了 Mac 后发现很多功能都不支持了，心想还是博客方便，故决心重开一个。 昨天简单调研了一下几个受欢迎的博客框架，然后就被 hexo 所深深吸引了，安装配置简单灵活，还有各种好看的主题……就决定是你了！主题用的是 hexo 社区最受欢迎的 NexT。 粗略浏览了一遍文档后就开撸。搭好环境测试了一下没问题，我把原先的GitHub 上的博客仓库改了个名字扔到一边，替换成了现在这个。新增了两个仓库： Yiming_Blog：这是博客脚手架仓库，包括本地环境、主题、各种配置以及 md 格式的博文等。 blog：这是上面那个项目自动生成部署的静态博客站点源码，在 Yiming_Blog 中配置好后，用 markdown 写完博客，在项目根目录直接执行 hexo g -d 命令，就能生成相应的静态页面，一键发布到我的 github-pages 上，通过 这个链接 即可访问。 博客的大部分配置通过修改项目中的 _config.yml 文件来实现。与博客框架相关的配置文件在根目录下，与主题相关的配置文件在 theme 文件夹对应的主题文件夹里。具体参考 hexo 官方文档 、NexT 官方文档 。 在生成 GitHub 仓库时遇到一个问题。由于 NexT 主题我是 git clone 到 theme 文件夹里的，所以它本身就是一个 git 仓库，而 Yiming_Blog 也是一个 git 仓库，于是就形成了大仓库嵌套小仓库的现象。这会导致小仓库里的改动无法被大仓库捕获。于是我把小仓库的 .git 文件夹删除了，使其恢复为普通文件夹，与大仓库融为一体。虽然这样做对将来主题版本更新不是很方便，但考虑到主题版本也不会经常更新，就先这样吧。以后如果要更新主题版本，记得先把 _config.yml 备份一下就好。 好了，暂时先交代这么多吧。希望这次可以坚持久一点，做到笔耕不辍，在持续总结中不断提高自己的姿势水平！ hexo 常用操作： hexo new &lt;title&gt; //写新文章 hexo new draft &lt;title&gt; //建立草稿 hexo publish &lt;title&gt; //发布草稿 hexo s //本地运行 hexo s --draft //本地预览草稿 hexo clean //清除缓存 hexo g -d //生成静态文件并部署到服务器 hexo 中引入图片等资源： 将资源文件放在 source 文件夹下对应的文件夹里 在文章中用 md 语法引入： 在根目录下：![](/images/img1.jpg) 在子目录/path下：![](/path/images/img2.jpg)(若博客放在网站子目录下，如www.mywebsite.com/blog，记得图片路径前也要加上子目录，否则无法解析！)]]></content>
       <tags>
         <tag>杂</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
 </search>
